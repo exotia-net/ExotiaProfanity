@@ -1,0 +1,4 @@
+name: ExotiaProfanity
+version: '${project.version}'
+main: net.exotia.exotiaprofanity.ExotiaProfanity
+api-version: 1.19
