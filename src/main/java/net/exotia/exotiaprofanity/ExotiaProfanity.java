@@ -19,7 +19,7 @@ public final class ExotiaProfanity extends JavaPlugin {
         this.injector.registerInjectable(this.getLogger());
         this.setupConfiguration();
 
-        this.profanityClient = new ProfanityClient(this.configuration.getApiUrl(), this);
+        this.profanityClient = new ProfanityClient(this.configuration, this);
         this.profanityClient.connect();
         this.injector.registerInjectable(this.profanityClient);
 

@@ -1,5 +1,6 @@
 package net.exotia.exotiaprofanity.client;
 
+import net.exotia.exotiaprofanity.configuration.Configuration;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
@@ -12,11 +13,13 @@ import java.util.logging.Logger;
 public class ProfanityClient extends WebSocketClient {
     private Plugin plugin;
     private Logger logger;
+    private Configuration configuration;
 
-    public ProfanityClient(URI serverUri, Plugin plugin) {
-        super(serverUri);
+    public ProfanityClient(Configuration configuration, Plugin plugin) {
+        super(configuration.getApiUrl());
         this.plugin = plugin;
         this.logger = plugin.getLogger();
+        this.configuration = configuration;
     }
 
     @Override
@@ -25,7 +28,7 @@ public class ProfanityClient extends WebSocketClient {
     }
     @Override
     public void onMessage(String message) {
-        String[] parts = message.split("%%");
+        String[] parts = message.split(this.configuration.getDelimiter());
         if (parts.length < 2) return;
 
         this.plugin.getServer().getScheduler().runTask(this.plugin, () -> {
