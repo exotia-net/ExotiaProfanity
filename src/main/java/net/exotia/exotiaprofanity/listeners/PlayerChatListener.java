@@ -22,7 +22,7 @@ public class PlayerChatListener implements Listener {
     @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
     public void onChat(AsyncPlayerChatEvent event) {
         Player player = event.getPlayer();
-        //if (player.hasPermission(Permissions.PROFANITY_BYPASS)) return;
+        if (player.hasPermission(Permissions.PROFANITY_BYPASS)) return;
         if (!event.isAsynchronous()) return;
 
         String message = event.getMessage().replace("%%", " ");
