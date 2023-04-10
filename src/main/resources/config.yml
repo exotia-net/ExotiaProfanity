@@ -1,1 +1,2 @@
-apiUrl: "https://profanity.exotia.net"
+apiUrl: "wss://profanity.exotia.net/ws"
+delimiter: "%%"
