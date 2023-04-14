@@ -24,6 +24,7 @@ public class PlayerChatListener implements Listener {
 
         String message = event.getMessage().replace(this.configuration.getDelimiter(), " ");
         message = String.join(this.configuration.getDelimiter(), player.getUniqueId().toString(), message);
+        if (!this.profanityClient.isOpen()) this.profanityClient.connect();
         this.profanityClient.send("/censor " + message);
         event.setCancelled(true);
     }
