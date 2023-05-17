@@ -1,24 +1,19 @@
 package net.exotia.exotiaprofanity.configuration;
 
-import eu.okaeri.injector.annotation.Inject;
-import eu.okaeri.injector.annotation.PostConstruct;
 import org.bukkit.plugin.Plugin;
-
 import java.net.URI;
 import java.net.URISyntaxException;
 
 public class Configuration {
-    @Inject private Plugin plugin;
+    private final String apiUrl;
+    private final String delimiter;
+    private final boolean autoReconnect;
 
-    private String apiUrl;
-    private String delimiter;
-
-    @PostConstruct()
-    public void onConstruct() {
-        this.apiUrl = this.plugin.getConfig().getString("apiUrl");
-        this.delimiter = this.plugin.getConfig().getString("delimiter");
+    public Configuration(Plugin plugin) {
+        this.apiUrl = plugin.getConfig().getString("apiUrl");
+        this.delimiter = plugin.getConfig().getString("delimiter");
+        this.autoReconnect = plugin.getConfig().getBoolean("autoReconnect");
     }
-
     public URI getApiUrl() {
         try {
             return new URI(this.apiUrl);
@@ -28,5 +23,8 @@ public class Configuration {
     }
     public String getDelimiter() {
         return this.delimiter;
+    }
+    public boolean isAutoReconnect() {
+        return this.autoReconnect;
     }
 }

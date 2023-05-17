@@ -10,15 +10,19 @@ import java.util.UUID;
 import java.util.logging.Logger;
 
 public class ProfanityClient extends WebSocketClient {
-    private Plugin plugin;
-    private Logger logger;
-    private Configuration configuration;
+    private final Plugin plugin;
+    private final Logger logger;
+    private final Configuration configuration;
 
     public ProfanityClient(Configuration configuration, Plugin plugin) {
         super(configuration.getApiUrl());
         this.plugin = plugin;
         this.logger = plugin.getLogger();
         this.configuration = configuration;
+    }
+
+    public Configuration getConfiguration() {
+        return this.configuration;
     }
 
     @Override
@@ -39,6 +43,10 @@ public class ProfanityClient extends WebSocketClient {
     @Override
     public void onClose(int code, String reason, boolean remote) {
         this.logger.severe("Closed with exit code " + code + " additional info: " + reason);
+        if (this.configuration.isAutoReconnect()) {
+            this.logger.info("Attempting to reconnect...");
+            this.plugin.getServer().getScheduler().runTask(this.plugin, this::connect);
+        }
     }
     @Override
     public void onError(Exception exception) {
