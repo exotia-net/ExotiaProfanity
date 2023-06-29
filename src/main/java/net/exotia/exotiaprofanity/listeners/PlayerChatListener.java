@@ -1,5 +1,6 @@
 package net.exotia.exotiaprofanity.listeners;
 
+import net.exotia.exotiaprofanity.Permissions;
 import net.exotia.exotiaprofanity.client.ProfanityClient;
 import net.exotia.exotiaprofanity.configuration.Configuration;
 import org.bukkit.entity.Player;
@@ -20,7 +21,7 @@ public class PlayerChatListener implements Listener {
     @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
     public void onChat(AsyncPlayerChatEvent event) {
         Player player = event.getPlayer();
-        //if (player.hasPermission(Permissions.PROFANITY_BYPASS)) return;
+        if (player.hasPermission(Permissions.PROFANITY_BYPASS)) return;
         if (!event.isAsynchronous()) return;
         if (!this.profanityClient.isOpen()) this.profanityClient.connect();
         this.profanityClient.send("/censor " + this.format(event.getMessage(), player));
