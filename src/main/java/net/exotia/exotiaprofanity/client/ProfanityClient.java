@@ -43,13 +43,19 @@ public class ProfanityClient extends WebSocketClient {
     @Override
     public void onClose(int code, String reason, boolean remote) {
         this.logger.severe("Closed with exit code " + code + " additional info: " + reason);
-        if (this.configuration.isAutoReconnect()) {
-            this.logger.info("Attempting to reconnect...");
-            this.plugin.getServer().getScheduler().runTask(this.plugin, this::connect);
-        }
+        this.tryToReconnect();
     }
     @Override
     public void onError(Exception exception) {
         this.logger.severe("An error occurred:" + exception);
+        if (!this.isOpen()) this.tryToReconnect();
+    }
+
+    private void tryToReconnect() {
+        this.logger.info("Trying to reconnect...");
+        this.plugin.getServer().getScheduler().runTaskLater(this.plugin, () -> {
+            this.connect();
+            this.logger.info("Reconnecting completed!");
+        }, 100L);
     }
 }
