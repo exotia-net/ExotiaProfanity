@@ -9,8 +9,8 @@ import okhttp3.OkHttpClient
 import okhttp3.Request
 import org.bukkit.Bukkit
 import org.bukkit.plugin.Plugin
-import java.util.*
 import java.util.logging.Logger
+import java.util.UUID
 import kotlin.reflect.KFunction
 
 

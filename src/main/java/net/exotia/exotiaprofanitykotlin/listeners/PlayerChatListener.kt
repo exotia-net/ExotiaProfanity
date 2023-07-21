@@ -19,7 +19,7 @@ class PlayerChatListener(
   @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
   fun onChat(event: AsyncPlayerChatEvent) {
     val player: Player = event.player
-    // if (player.hasPermission(profanityBypass)) return
+    if (player.hasPermission(profanityBypass)) return
     if (!event.isAsynchronous) return
     val wsResponse = this.ws.send("/censor ${this.format(event.message, player)}")
     if (wsResponse == true) {

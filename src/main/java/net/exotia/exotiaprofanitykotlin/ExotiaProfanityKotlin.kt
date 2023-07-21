@@ -3,9 +3,11 @@ package net.exotia.exotiaprofanitykotlin
 import net.exotia.exotiaprofanitykotlin.client.ProfanityClient
 import net.exotia.exotiaprofanitykotlin.configuration.Configuration
 import net.exotia.exotiaprofanitykotlin.listeners.PlayerChatListener
-import okhttp3.*
 import org.bukkit.plugin.java.JavaPlugin
 import java.util.concurrent.TimeUnit
+import okhttp3.OkHttpClient
+import okhttp3.Request
+import okhttp3.WebSocket
 
 class ExotiaProfanityKotlin : JavaPlugin() {
   lateinit var configuration: Configuration
